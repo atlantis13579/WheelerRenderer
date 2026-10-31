@@ -1,16 +1,16 @@
 # Wheeler
 
-Win64 / DirectX 11 实时黑洞渲染器，C++17 + HLSL + Dear ImGui。默认提供《星际穿越》风格的金白色吸积盘、引力透镜、光子环、星空和镜头辉光。
+Win64 / DirectX 11 real-time black hole renderer, C++17 + HLSL + Dear ImGui. By default it provides an *Interstellar*-style gold-and-white accretion disk, gravitational lensing, a photon ring, a starfield, and lens flare.
 
-逐像素在 Schwarzschild 时空中反向积分光子的零测地线。吸积盘主像、上下副像和背景星空的偏折来自同一套光线路径计算。
+Null geodesics of photons are integrated backwards per pixel in Schwarzschild spacetime. The deflection of the accretion disk's primary image, its upper and lower secondary images, and the background starfield all come from the same ray-path computation.
 
-## 运行与编译
+## Running and building
 
-直接运行 `Run.bat`，或者 `Binaries\Win64\Release\Wheeler.exe`。
-`Run.bat` 在 Release 可执行文件不存在时自动编译。
+Run `Run.bat` directly, or run `Binaries\Win64\Release\Wheeler.exe`.
+`Run.bat` builds automatically when the Release executable does not exist.
 
-开发环境：Windows 10/11 x64、Visual Studio 2022、Desktop development with C++、v143 工具集、Windows 10/11 SDK。
-显卡需要支持 Direct3D feature level 11.0。无需 CUDA、DX12、CMake、Python、Riemann 或外部素材包。
+Development environment: Windows 10/11 x64, Visual Studio 2022, Desktop development with C++, v143 toolset, Windows 10/11 SDK.
+The GPU must support Direct3D feature level 11.0. CUDA, DX12, CMake, Python, Riemann, and external asset packs are not required.
 
 ```bat
 Build\GenerateProjects.bat
@@ -20,8 +20,8 @@ Build\Validate.bat Release
 Build\Package.bat
 ```
 
-VS2022 工程：`Build\Win64\Wheeler.sln`，仅含 `Debug|x64` 和 `Release|x64`。
-已提交生成后的工程文件；新增源码后运行 `GenerateProjects.bat`，`Build.bat` 也会自动重新生成。
+VS2022 solution: `Build\Win64\Wheeler.sln`, containing only `Debug|x64` and `Release|x64`.
+Generated project files are committed; after adding new sources run `GenerateProjects.bat`, and `Build.bat` also regenerates automatically.
 
 ```text
 Binaries/
@@ -46,50 +46,50 @@ Src/
   ThirdParty/imgui/   Dear ImGui v1.91.9b and official backends
 ```
 
-着色器源码嵌入 exe，使用系统 `d3dcompiler_47.dll` 在启动时编译；启动通常需要数秒。
-CRT 静态链接，发布版本不需要安装 VC++ 运行库。分发时保留许可证与第三方声明。
+Shader sources are embedded in the exe and compiled at startup using the system `d3dcompiler_47.dll`; startup typically takes a few seconds.
+The CRT is statically linked, so release builds do not require installing the VC++ runtime. Keep the license and third-party notices when redistributing.
 
-## 操控
+## Controls
 
-右键旋转、WASD 水平移动、Q/E 升降的习惯参考 Riemann Viewer；增加中键平移、连续移动和界面输入隔离。
+Right-drag to rotate, WASD to move horizontally, and Q/E to move up/down follow the Riemann Viewer conventions; middle-drag panning, continuous movement, and UI input isolation are added.
 
-| 操作 | 功能 |
+| Action | Function |
 | --- | --- |
-| 鼠标右键拖动 | 围绕当前目标旋转 |
-| 鼠标中键拖动 | 在相机平面内平移 |
-| 滚轮 | 按距离比例缩放 |
-| W / A / S / D | 在水平面内前后左右移动 |
-| Q / E | 向下 / 向上移动 |
-| Shift | 加速移动 |
-| R | 重置相机 |
-| Space | 暂停 / 继续吸积盘动画 |
+| Right mouse drag | Orbit around the current target |
+| Middle mouse drag | Pan within the camera plane |
+| Scroll wheel | Zoom proportional to distance |
+| W / A / S / D | Move forward/back/left/right in the horizontal plane |
+| Q / E | Move down / up |
+| Shift | Move faster |
+| R | Reset camera |
+| Space | Pause / resume accretion disk animation |
 | 1 / 2 / 3 / 4 | Cinematic / Scientific / Polar view / Star lensing |
-| Tab | 显示 / 隐藏界面 |
-| F11 | 无边框全屏 / 恢复窗口 |
-| F12 | 保存当前画面 PNG |
-| F5 | 从源码目录重新加载着色器；失败时保留原着色器 |
+| Tab | Show / hide UI |
+| F11 | Borderless fullscreen / restore window |
+| F12 | Save the current frame as PNG |
+| F5 | Reload shaders from the source directory; keeps the previous shaders on failure |
 
-鼠标悬停在右侧面板时，滚轮滚动面板。界面接受输入时阻止相机误操作。
-相机使用静止观测者模型，位置限制在事件视界以外；非常靠近黑洞并朝向其中心时，整个视野被阴影覆盖是正常现象。按 R 恢复。
+While hovering over the right-hand panel, the scroll wheel scrolls the panel. Camera input is blocked while the UI accepts input.
+The camera uses a static-observer model and is constrained outside the event horizon; when very close to the black hole and looking toward its center, it is normal for the entire view to be covered by shadow. Press R to recover.
 
-`Controls & files` 中的 `Save view` / `Load view` 保存和读取 exe 同目录的 `Wheeler.ini`。普通启动会加载已保存视图；命令行指定 `--preset` 或使用 `--headless` 时不加载。
-F12 和 `Capture PNG` 保存到 exe 同目录的 `Captures`，隐藏界面后截图可得到纯渲染图。
+`Save view` / `Load view` in `Controls & files` write and read `Wheeler.ini` next to the exe. Normal startup loads the saved view; it is not loaded when `--preset` is given on the command line or when `--headless` is used.
+F12 and `Capture PNG` save to `Captures` next to the exe; hiding the UI before capturing yields a clean render.
 
-## ImGui 参数
+## ImGui parameters
 
-- **Spacetime**：引力透镜开关、多普勒和引力红移强度、太阳质量单位及实际 Rs 长度。
-- **Accretion disk**：内外半径、色温、亮度、盘面细节、不透明度、图案动画速度及盘面倾角。
-- **Light & lens**：曝光、五级 bloom、阈值、半径、横向镜头辉光、星空、银河和暗角。
-- **Camera & playback**：距离、方位、俯仰、FOV、移动速度、自动环绕和时间控制。
-- **Renderer & diagnostics**：三档积分质量、0.4–1.5 倍渲染比例、渐进抗锯齿、VSync、绕行量、迭代开销和捕获掩码。
+- **Spacetime**: gravitational lensing toggle, Doppler and gravitational redshift strength, solar mass units and physical Rs length.
+- **Accretion disk**: inner/outer radius, color temperature, brightness, disk detail, opacity, pattern animation speed, and disk inclination.
+- **Light & lens**: exposure, five-level bloom, threshold, radius, anamorphic lens flare, starfield, Milky Way, and vignette.
+- **Camera & playback**: distance, azimuth, pitch, FOV, movement speed, auto-orbit, and time control.
+- **Renderer & diagnostics**: three integration quality levels, 0.4–1.5x render scale, progressive anti-aliasing, VSync, winding count, iteration cost, and capture mask.
 
-电影预设会弱化频移；Scientific 预设将两种频移强度设置为 1，并减少镜头效果。
-Scientific 仍使用程序化发光盘和艺术化亮度，不是光谱观测或吸积流体求解器。
+The cinematic preset weakens the frequency shift; the Scientific preset sets both shift strengths to 1 and reduces lens effects.
+Scientific still uses a procedural emitting disk and artistic brightness — it is not a spectroscopic observation or an accretion fluid solver.
 
-## 光线与渲染模型
+## Ray and rendering model
 
-长度单位为 Schwarzschild 半径 `Rs = 2GM/c²`，黑洞位于原点。
-球对称性使每条光线保持在经过黑洞的轨道平面内。令 `u = Rs/r`、`v = du/dφ`，积分方程为：
+Lengths are in Schwarzschild radii `Rs = 2GM/c²`, with the black hole at the origin.
+Spherical symmetry keeps every ray inside the orbital plane that passes through the black hole. With `u = Rs/r` and `v = du/dφ`, the integration equations are:
 
 ```text
 du/dφ = v
@@ -97,10 +97,10 @@ dv/dφ = 1.5 u² - u
 v² + u² - u³ = (Rs/b)²
 ```
 
-`Src/Physics/GeodesicShared.h` 包含 CPU 和 HLSL 共用的 RK4 更新式。GPU 使用 float，CPU 验证使用 double。
-步进限制径向变化，并精确落在轨道与盘面相交的角度；不会仅靠检测两个空间采样点的符号来碰撞薄盘。
+`Src/Physics/GeodesicShared.h` contains the RK4 update shared by the CPU and HLSL. The GPU uses float; CPU validation uses double.
+Stepping limits the radial change and lands exactly on the angle where the orbit meets the disk plane; thin-disk hits are not detected merely from the sign of two spatial samples.
 
-每个像素首先由相机的局部静止正交标架生成光线。对于观测者半径 `r₀`、局部径向余弦 `μ`：
+Each pixel first generates a ray from the camera's local static orthonormal frame. For observer radius `r₀` and local radial cosine `μ`:
 
 ```text
 u₀ = Rs/r₀
@@ -108,80 +108,80 @@ b/Rs = (r₀/Rs) sqrt(1 - μ²) / sqrt(1 - u₀)
 v₀ = -u₀ μ sqrt(1 - u₀) / sqrt(1 - μ²)
 ```
 
-`u >= 1` 表示视界捕获；`u <= 0` 表示逃逸到无穷远，使用该处方向查询星空。
-径向光线单独处理。积分预算耗尽的光线不会被错误地视为逃逸；诊断模式将其标为洋红色。
+`u >= 1` means horizon capture; `u <= 0` means escape to infinity, where the direction is used to look up the starfield.
+Radial rays are handled separately. Rays that exhaust the integration budget are not mistakenly treated as escaped; diagnostic mode marks them magenta.
 
-Schwarzschild 光子球位于 `1.5 Rs`，远处观测者的临界冲量参数为 `b_c = 3√3 Rs/2`。
-稳定圆轨道盘的内半径限制为不小于 ISCO `3 Rs`。
+The Schwarzschild photon sphere is at `1.5 Rs`, and the critical impact parameter for a distant observer is `b_c = 3√3 Rs/2`.
+The inner radius of the stable circular-orbit disk is clamped to no less than the ISCO, `3 Rs`.
 
-盘面使用 Kepler 圆轨道频率计算频移，程序化温度分布参考零内边界应力薄盘的径向形式。
-对实际未来指向的光子角动量 `λ = L/E`，完整频移为：
+The disk uses the Keplerian circular-orbit frequency for the frequency shift, and the procedural temperature profile follows the radial form of a thin disk with zero inner-boundary stress.
+For the actual future-directed photon angular momentum `λ = L/E`, the full shift is:
 
 ```text
 Ω = sqrt(0.5 / r³)                 # r in Rs, time in Rs/c
 g = sqrt((1 - 1.5/r) / (1 - 1/r₀)) / (1 - Ω λ)
 ```
 
-引力和多普勒两个滑块均为 1 时恢复这一表达式。RGB 色温近似与 `g⁴` 亮度调制用于可视化。
-盘面噪声、色温、密度图案、盘透明度和镜头效果属于可调的视觉模型；未计算完整光谱辐射转移。
+Setting both the gravitational and Doppler sliders to 1 recovers this expression. An RGB color-temperature approximation with `g⁴` brightness modulation is used for visualization.
+Disk noise, color temperature, density pattern, disk opacity, and lens effects are adjustable visual models; full spectral radiative transfer is not computed.
 
-渲染流程：
+Render pipeline:
 
-1. 全屏像素着色器反向积分测地线，计算盘面辐射与逃逸星光，写入 RGBA16F。
-2. 两张 HDR 历史缓冲做亚像素抖动累积。相机或渲染参数改变时重置；动画时最多 8 帧，暂停时最多 32 帧。
-3. 五级降采样 bloom，横向镜头辉光，曝光、ACES 近似色调映射、gamma 和输出抖动。
-4. 绘制 Dear ImGui；可在 present 前读取渲染目标并用 WIC 输出 PNG。
+1. A fullscreen pixel shader integrates geodesics backwards, computes disk emission and escaping starlight, and writes RGBA16F.
+2. Two HDR history buffers accumulate with subpixel jitter. Reset when the camera or render parameters change; at most 8 frames while animating, at most 32 while paused.
+3. Five-level downsampled bloom, anamorphic lens flare, exposure, ACES-approximate tone mapping, gamma, and output dithering.
+4. Draw Dear ImGui; the render target can be read before present and written as PNG via WIC.
 
-**模型范围**：当前是非自旋的 Schwarzschild 黑洞。相机和盘面可旋转，未实现 Kerr 自旋、参考系拖曳、移动观测者的相对论像差、光行时延迟、MHD 或爱因斯坦场方程的动态求解。
-质量参数显示实际长度尺度；以 Rs 为单位保持相同相机/盘半径时，画面几何不随质量变化。盘面动画时钟经过艺术化加速，不代表对应太阳质量下的真实演化时间。
-星空为程序化全天球，恒星足迹过滤和渐进累积也不同于电影 DNGR 的椭圆光束追踪。
+**Model scope**: currently a non-spinning Schwarzschild black hole. The camera and disk can rotate; Kerr spin, frame dragging, relativistic aberration for moving observers, light-travel-time delay, MHD, and dynamic solves of the Einstein field equations are not implemented.
+The mass parameter displays physical length scales; with the same camera/disk radius in units of Rs, the image geometry does not change with mass. The disk animation clock is artistically accelerated and does not represent the real evolution time for the given solar mass.
+The starfield is a procedural full celestial sphere; star footprint filtering and progressive accumulation also differ from DNGR's elliptical beam tracing in the film.
 
-物理背景参考：[Semerák, *Approximating light rays in the Schwarzschild field*](https://arxiv.org/abs/1412.5650)。电影视觉与频移处理参考：[James et al., *Gravitational Lensing by Spinning Black Holes in Astrophysics, and in the Movie Interstellar*](https://arxiv.org/abs/1502.03808)。本工程没有复用 DNGR 实现。
+Physics background: [Semerák, *Approximating light rays in the Schwarzschild field*](https://arxiv.org/abs/1412.5650). Film visuals and shift handling: [James et al., *Gravitational Lensing by Spinning Black Holes in Astrophysics, and in the Movie Interstellar*](https://arxiv.org/abs/1502.03808). This project does not reuse the DNGR implementation.
 
-## 自动验证与命令行
+## Automated validation and command line
 
 ```bat
 Binaries\Win64\Release\Wheeler.exe --headless --no-ui --frames 96 --width 1600 --height 900 --preset cinematic --time 12 --capture Intermediate\Validation\capture.png --report Intermediate\Validation\capture.json --debug-gpu
 ```
 
-| 参数 | 说明 |
+| Argument | Description |
 | --- | --- |
-| `--headless` | 隐藏窗口，关闭 VSync，不读取保存配置；默认跑 64 帧 |
-| `--frames N` | 渲染 N 帧后退出 |
-| `--width W --height H` | 客户区与输出尺寸 |
-| `--no-ui` | 纯渲染画面 |
-| `--preset cinematic/scientific/top/lensing` | 选择预设 |
-| `--time T` | 固定动画时间，获得可重复截图 |
-| `--paused` | 暂停动画 |
-| `--quality 0/1/2 --scale S` | 积分质量与内部渲染比例 |
-| `--pitch degrees --yaw degrees --distance Rs` | 设置相机 |
-| `--flat --no-disk` | 直线传播对照 / 关闭盘面 |
+| `--headless` | Hide the window, disable VSync, do not read the saved config; runs 64 frames by default |
+| `--frames N` | Render N frames then exit |
+| `--width W --height H` | Client area and output size |
+| `--no-ui` | Clean render only |
+| `--preset cinematic/scientific/top/lensing` | Select a preset |
+| `--time T` | Fix the animation time for reproducible captures |
+| `--paused` | Pause the animation |
+| `--quality 0/1/2 --scale S` | Integration quality and internal render scale |
+| `--pitch degrees --yaw degrees --distance Rs` | Set the camera |
+| `--flat --no-disk` | Straight-line propagation control / disable the disk |
 | `--debug-view 0/1/2/3` | Beauty / winding / iterations / capture mask |
-| `--capture path.png --report path.json` | 最后一帧截图与验证报告 |
-| `--debug-gpu` | 启用 DX11 debug layer；未安装时回退并在报告中标识 |
-| `--validate` | 自动经历缩小 / 恢复尺寸，检查资源生命周期 |
-| `--warp` | 使用 WARP 软件设备，仅用于兼容验证 |
-| `--help` | 将参数帮助写入 exe 同目录的 `command-line-help.txt` |
+| `--capture path.png --report path.json` | Capture the last frame and write a validation report |
+| `--debug-gpu` | Enable the DX11 debug layer; falls back and marks it in the report if not installed |
+| `--validate` | Automatically shrink / restore size to check resource lifetime |
+| `--warp` | Use the WARP software device, for compatibility validation only |
+| `--help` | Write argument help to `command-line-help.txt` next to the exe |
 
-所有有限帧运行在最后一帧验证 HDR 数据的有限性、非负性与覆盖 alpha。
-失败时返回非零退出码，错误写入 exe 同目录 `Wheeler-error.log`，调试层警告另写 `d3d11-validation.log`。
-在系统设置中安装 **Graphics Tools** 可启用完整的 DX11 debug layer 验证。
+All finite-frame runs validate finiteness, non-negativity, and coverage alpha of the HDR data on the last frame.
+On failure a non-zero exit code is returned, errors are written to `Wheeler-error.log` next to the exe, and debug-layer warnings are written separately to `d3d11-validation.log`.
+Install **Graphics Tools** in system settings to enable full DX11 debug-layer validation.
 
-`Build\Validate.bat` 包含：
+`Build\Validate.bat` covers:
 
-- 临界捕获、光子球、弱场二阶偏折、守恒量、RK4 收敛和近距离观测者初值测试。
-- 相机基向量、俯仰/缩放限制、平移、视界保护、配置往返和异常配置测试。
-- 13 组 GPU 场景：电影、界面、物理频移、俯视、星空、下方、近视界、直线传播、resize、快速模式、超采样、捕获掩码、WARP。
-- 将 GPU 阴影直径与静止观测者的理论捕获锥比较，允许 3 像素的栅格化/抗锯齿误差。
+- Critical capture, photon sphere, weak-field second-order deflection, conserved quantities, RK4 convergence, and near-observer initial value tests.
+- Camera basis vectors, pitch/zoom limits, panning, horizon protection, config round-trip, and malformed config tests.
+- 13 GPU scenes: cinematic, UI, physical shift, top-down, starfield, below, near-horizon, straight-line, resize, fast, supersampled, capture mask, and WARP.
+- Compares the GPU shadow diameter against the theoretical capture cone for a static observer, allowing a 3-pixel rasterization/anti-aliasing error.
 
-2026-10-29 本机 RTX 4060 验证：上述测试通过，全部场景 DX11 调试警告为 0。
-960×540 的捕获掩码实测直径 112 px，理论值 112.776 px。
-1600×900、Balanced、100% 比例、固定时间离屏测试的一次稳定运行 GPU 平均约 1.42 ms；冷启动及系统负载下已有约 4 ms 的样本。这是渲染 GPU 时间，不包含启动时 shader 编译、窗口合成、VSync 或完整交互帧延迟，不保证其他设备的帧率。
-每次执行的实际结果保存在 `Intermediate\Validation\*.json`；短 WARP 测试可能尚未收齐 GPU timestamp，`gpu_ms = 0` 表示无可用样本。
+2026-10-29 local RTX 4060 validation: the tests above pass, with 0 DX11 debug warnings across all scenes.
+The measured capture-mask diameter at 960×540 is 112 px versus a theoretical 112.776 px.
+One stable run at 1600×900, Balanced, 100% scale, fixed time, off-screen averaged about 1.42 ms GPU time; samples around 4 ms have been seen under cold start and system load. This is render GPU time only and excludes startup shader compilation, window compositing, VSync, and full interactive frame latency; it does not guarantee frame rates on other devices.
+Actual results of each run are saved to `Intermediate\Validation\*.json`; short WARP tests may not have collected GPU timestamps, where `gpu_ms = 0` means no sample is available.
 
-## 发布
+## Release
 
-`Build\Package.bat` 将已经编译的 Release exe、操作说明和许可证打包为 `Binaries\Wheeler-Win64.zip`。
-解压后直接运行 `Wheeler.exe`。发布包不依赖源码路径；只有 F5 从源码热加载需要完整 checkout。
+`Build\Package.bat` packages the built Release exe, operating instructions, and license into `Binaries\Wheeler-Win64.zip`.
+Run `Wheeler.exe` directly after extraction. The release package does not depend on source paths; only F5 shader hot-reload from source requires a full checkout.
 
-项目使用 MIT License。第三方许可证见 [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md)。
+The project uses the MIT License. Third-party licenses: [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md).
