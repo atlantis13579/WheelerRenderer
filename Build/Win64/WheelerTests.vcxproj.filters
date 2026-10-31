@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="App" />
+    <Filter Include="Physics" />
+    <Filter Include="Tests" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Src\App\Camera.h"><Filter>App</Filter></ClInclude>
+    <ClInclude Include="..\..\Src\App\Configuration.h"><Filter>App</Filter></ClInclude>
+    <ClInclude Include="..\..\Src\App\Math.h"><Filter>App</Filter></ClInclude>
+    <ClInclude Include="..\..\Src\App\Settings.h"><Filter>App</Filter></ClInclude>
+    <ClInclude Include="..\..\Src\Physics\GeodesicShared.h"><Filter>Physics</Filter></ClInclude>
+    <ClCompile Include="..\..\Src\Tests\PhysicsTests.cpp"><Filter>Tests</Filter></ClCompile>
+  </ItemGroup>
+</Project>

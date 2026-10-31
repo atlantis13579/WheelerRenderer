@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="App" />
+    <Filter Include="Physics" />
+    <Filter Include="Render" />
+    <Filter Include="Shaders" />
+    <Filter Include="ThirdParty\imgui" />
+    <Filter Include="ThirdParty\imgui\backends" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\Src\App\Camera.h"><Filter>App</Filter></ClInclude>
+    <ClInclude Include="..\..\Src\App\Configuration.h"><Filter>App</Filter></ClInclude>
+    <ClCompile Include="..\..\Src\App\Main.cpp"><Filter>App</Filter></ClCompile>
+    <ClInclude Include="..\..\Src\App\Math.h"><Filter>App</Filter></ClInclude>
+    <ClInclude Include="..\..\Src\App\Settings.h"><Filter>App</Filter></ClInclude>
+    <ClInclude Include="..\..\Src\Physics\GeodesicShared.h"><Filter>Physics</Filter></ClInclude>
+    <ClCompile Include="..\..\Src\Render\Renderer.cpp"><Filter>Render</Filter></ClCompile>
+    <ClInclude Include="..\..\Src\Render\Renderer.h"><Filter>Render</Filter></ClInclude>
+    <ResourceCompile Include="..\..\Src\Render\Shaders.rc"><Filter>Render</Filter></ResourceCompile>
+    <None Include="..\..\Src\Shaders\BlackHole.hlsl"><Filter>Shaders</Filter></None>
+    <None Include="..\..\Src\Shaders\Common.hlsli"><Filter>Shaders</Filter></None>
+    <None Include="..\..\Src\Shaders\Post.hlsl"><Filter>Shaders</Filter></None>
+    <ClCompile Include="..\..\Src\ThirdParty\imgui\backends\imgui_impl_dx11.cpp"><Filter>ThirdParty\imgui\backends</Filter></ClCompile>
+    <ClInclude Include="..\..\Src\ThirdParty\imgui\backends\imgui_impl_dx11.h"><Filter>ThirdParty\imgui\backends</Filter></ClInclude>
+    <ClCompile Include="..\..\Src\ThirdParty\imgui\backends\imgui_impl_win32.cpp"><Filter>ThirdParty\imgui\backends</Filter></ClCompile>
+    <ClInclude Include="..\..\Src\ThirdParty\imgui\backends\imgui_impl_win32.h"><Filter>ThirdParty\imgui\backends</Filter></ClInclude>
+    <ClInclude Include="..\..\Src\ThirdParty\imgui\imconfig.h"><Filter>ThirdParty\imgui</Filter></ClInclude>
+    <ClCompile Include="..\..\Src\ThirdParty\imgui\imgui.cpp"><Filter>ThirdParty\imgui</Filter></ClCompile>
+    <ClInclude Include="..\..\Src\ThirdParty\imgui\imgui.h"><Filter>ThirdParty\imgui</Filter></ClInclude>
+    <ClCompile Include="..\..\Src\ThirdParty\imgui\imgui_draw.cpp"><Filter>ThirdParty\imgui</Filter></ClCompile>
+    <ClInclude Include="..\..\Src\ThirdParty\imgui\imgui_internal.h"><Filter>ThirdParty\imgui</Filter></ClInclude>
+    <ClCompile Include="..\..\Src\ThirdParty\imgui\imgui_tables.cpp"><Filter>ThirdParty\imgui</Filter></ClCompile>
+    <ClCompile Include="..\..\Src\ThirdParty\imgui\imgui_widgets.cpp"><Filter>ThirdParty\imgui</Filter></ClCompile>
+    <ClInclude Include="..\..\Src\ThirdParty\imgui\imstb_rectpack.h"><Filter>ThirdParty\imgui</Filter></ClInclude>
+    <ClInclude Include="..\..\Src\ThirdParty\imgui\imstb_textedit.h"><Filter>ThirdParty\imgui</Filter></ClInclude>
+    <ClInclude Include="..\..\Src\ThirdParty\imgui\imstb_truetype.h"><Filter>ThirdParty\imgui</Filter></ClInclude>
+    <None Include="..\..\Src\ThirdParty\imgui\LICENSE.txt"><Filter>ThirdParty\imgui</Filter></None>
+  </ItemGroup>
+</Project>

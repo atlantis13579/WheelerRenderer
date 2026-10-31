@@ -1,0 +1,10 @@
+/Binaries/**
+!/Binaries/.gitkeep
+/Intermediate/**
+!/Intermediate/.gitkeep
+/Build/.vs/
+/Build/Win64/.vs/
+*.user
+*.suo
+*.VC.db
+*.VC.opendb
