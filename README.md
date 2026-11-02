@@ -1,4 +1,4 @@
-# Wheeler
+# Wheeler Renderer
 
 Win64 / DirectX 11 real-time black hole renderer, C++17 + HLSL + Dear ImGui. By
 default it provides an *Interstellar*-style gold-and-white accretion disk,
