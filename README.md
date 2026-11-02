@@ -4,6 +4,8 @@ Win64 / DirectX 11 real-time black hole renderer, C++17 + HLSL + Dear ImGui. By
 default it provides an *Interstellar*-style gold-and-white accretion disk,
 gravitational lensing, a photon ring, a starfield, and lens flare.
 
+<img width="1583" height="890" alt="bh" src="https://github.com/user-attachments/assets/95ede5c5-0d05-4b2d-a537-8c8f226ec4a0" />
+
 Null geodesics of photons are integrated backwards per pixel in Schwarzschild
 spacetime. The deflection of the accretion disk's primary image, its upper and
 lower secondary images, and the background starfield all come from the same
